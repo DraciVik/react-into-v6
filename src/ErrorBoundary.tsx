@@ -7,13 +7,13 @@ class ErrorBoundary extends Component {
     return { hasError: true, redirect: false };
   }
 
-  componentDidCatch(error, info) {
+  componentDidCatch(error: Error, info: ErrorInfo): void {
     // I log this to Sentry, Azure Monitor, New Relic, TrackJS;
     console.error("ErrorBoundary caught an error", error, info);
     setTimeout(() => this.setState({ redirect: true }), 5000);
   }
 
-  render() {
+  render(): ReactNode {
     if (this.state.redirect) {
       return <Redirect to="/" />;
     } else if (this.state.hasError) {
